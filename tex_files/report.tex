@@ -26,8 +26,20 @@
 
 \begin{itemize}
 \item Define series estimator \textbf{(M)}
+
+Recall that a sieve estimator for the unknown mean function $g(x)$ in the regression is a sequence of models. The motivation of sieve estimators leads to additional constraints, namely that the models should be have finite dimension, and that the complexity (i.e. dimension) increases as n increases.  Therefore the most natural choice for a sieve estimator and the choice we will focus on is a series estimator: 
+$$ g_m(x) = \sum_{d=0}^{D} \alpha_{dm} \phi_{dm}(x)$$  [Hansen]
+Such a formulation leads to traditional problems in linear models, so given the dimension of  the model and a choice of basis function, finding the coefficients $\alpha$ has well known solutions.  The constraints in the formulation are light; namely the choice of basis function must approximate functions in $L^2$, among other natural constraints for the regression problem.  For completeness, examples of non linear sieves are Neural Networks, or penalized sieve estimators.  [Chen]
+
+
+
 \item Parameters - choice of basis function and dimensionality $D$ \textbf{(M)}
+
+Given the sieve estimator defined as a series, there are two choices to be made: the dimension of the model, and the choice of basis function.  
 \item Compare to Kernel Density estimates (Kernel and h) \textbf{(M)}
+
+The sieve estimator has a number of similarities to the Kernel Density estimation problem.  In both cases there are two choices to be made, one parameter that controls the bias variance tradeoff, and a second parameter that is related to underlying beliefs about the model.  So the bandwidth in the Kernel estimation problem is analogous to the choice of dimension. Intuitively, as the dimension increases or the bandwidth decreases the estimator is more sensitive to local behavior and produces a rougher estimate. Similarly, the choice of the Kernel is analogous to the choice of basis function; the choice impacts the final model and exact statistical properties of the estimator, yet is less interesting because any reasonable choice of basis function or kernel function produces a similar estimate. 
+
 \item Suppose $D$ is fixed - what is Bias, Variance, MSE, MISE \textbf{(B)}
 \item develop PSE \textbf{(N)}
 \item Connect MISE and PSE \textbf{(N)}
