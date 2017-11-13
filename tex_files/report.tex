@@ -70,7 +70,47 @@ Other common choices for the basis function are Splines and Wavelets. A univaria
 
 With the setup of a series estimator with a choice of dimension and basis function the sieve estimator has a number of similarities to the Kernel Density estimation problem.  In both cases there are two choices to be made, one parameter that controls the bias variance tradeoff, and a second parameter that is related to underlying beliefs about the model.  So the bandwidth in the Kernel estimation problem is analogous to the choice of dimension. Intuitively, as the dimension increases or the bandwidth decreases the estimator is more sensitive to local behavior and produces a rougher estimate. Similarly, the choice of the Kernel is analogous to the choice of basis function; the choice impacts the final model and exact statistical properties of the estimator, yet is less interesting because any reasonable choice of basis function or kernel function produces a similar estimate. 
 
-\item Suppose $D$ is fixed - what is Bias, Variance, MSE, MISE \textbf{(B)}
+\item 
+Suppose we have some function $f(x)$ that can be well approximated by a series estimator. That is we can write $$y_i\equiv f(x_i) + e(x_i)= \sum_{d=0}^{\infty}\phi_{d}(x_i)\alpha_d + e(x_i)$$
+where $\{\phi_d\}_{d=0}^{D}$ is a set of orthogonal basis functions and $\alpha_d$ are coefficients. Then the \textit{sieves} estimator for this function is given by $$\hat{f}(x_i) = \sum_{d=0}^{D}\phi(x_i)\alpha_{d} = \phi^{T}(x_i)\alpha$$where $\phi^{T}(x_i) = (\phi_{0}(x_i), \phi_{1}(x_i),\ldots, \phi_D(x))^{T}$ and $\alpha = (\alpha_0, \alpha_1, \ldots, \alpha_D)$. Now organizing our matrices as follows 
+
+$$Y = \begin{bmatrix}Y_1\\ Y_2\\\vdots\\Y_n\end{bmatrix}, P_D = \begin{bmatrix}\phi_0(x_1) & \phi_1(x_1) & \ldots & \phi_{D}(x_1)\\\phi_0(x_2) & \phi_1(x_2) & \ldots & \phi_{D}(x_2)\\\vdots & \vdots & \ddots & \vdots \\\phi_0(x_n) & \phi_1(x_n) & \ldots & \phi_{D}(x_n)\\\end{bmatrix}, \alpha = \begin{bmatrix}\alpha_0\\\alpha_1 \\\vdots\\\alpha_D\end{bmatrix}, e =\begin{bmatrix}e(x_1)\\e(x_2)\\\vdots\\e(x_n)\end{bmatrix}$$ we can write our regression estimate as $$Y = P_D\alpha + e$$
+Seeing this a linear function in $P_D$ gives rise to our OLS estimator of $\alpha$ $$\hat{\alpha} = (P_D^{T}P_D)^{-1}P_D^{T}Y$$ From here we see that our estimates are given by $$\hat{f}(x_i) = \phi^{T}(x_i)\hat{\alpha}$$
+
+\noindent\makebox[\linewidth]{\rule{.8\paperwidth}{0.2pt}}
+
+In this framework, we introduce two types of error. The first is given by the error of the approximation. This is, how well the series estimator matches the true underlying function. (Think truncated Taylor expansion). We will define this error by $$r(x) = \phi^{T}(x)\alpha - f(x)$$
+(\textit{Notice that these are the true coefficient values}). The other source or error is of course the random variation around the true regression function. We will call this the residual error, $\epsilon(x_i)$. Then we see that from the original model $y_i = f(x_i) + e_i(x_i)$ that we can decompose the error as 
+$$e_i(x_i) = \epsilon(x_i) + r(x_i)$$
+As we vary $D$ we greatly reduce the variance in $r(x_i)$ as the more complex model will always account for more variance. But we need to be careful to ensure that the model is only reducing $r(x_i)$ not $\epsilon(x_i)$. To try and find an analytical choice of $D$, we will find the $MISE$. First consider the following expansion. 
+\begin{align*}
+\hat{f}(x) - f(x) &=  \phi^{T}(x)\hat{\alpha} - f(x)\\
+&= \phi^{T}(x)\hat{\alpha} - \phi^{T}(x)\alpha + \phi^{T}(x)\alpha- f(x)\\
+&= \phi^{T}(x)\hat{\alpha} - \phi^{T}(x)\alpha + r(x)\\
+&= \phi(x)\phi^{T}(x)\left(\hat{\alpha} - \alpha\right) + r(x)\\
+&
+\end{align*}
+Assume that the underlying $X$ distribution is $g$. Then 
+\begin{align*}
+MISE(D) &=\int (\hat{f}(x) - f(x))^2 g(x)dx\\
+&= \int \left(\phi^{T}(x)\left(\hat{\alpha} - \alpha\right) + r(x)\right)^2g(x)dx\\
+&= \int r(x)^2g(x)dx + 2(\hat{\alpha} - \alpha)\int \phi^{T}(x)r(x)g(x)dx + (\hat{\alpha} - \alpha)^{T}\int \phi(x)\phi^{T}(x)g(x)dx (\hat{\alpha} - \alpha)\\
+&= E(r^2(x)) + 2(\hat{\alpha} - \alpha)E(\phi^{T}(x)r(x)) + (\hat{\alpha} - \alpha)^{T}E(\phi(x)\phi^{T}(x))(\hat{\alpha} - \alpha)
+\end{align*}
+Now recall that the $r(x)$ was a projection error during our OLS estimate of $\alpha$. Therefore, $r(x)$ and $\phi^{T}(x_i)$ exists in orthogonal spaces. Hence $E(\phi^{T}(x)r(x)) = 0$. Moro ever, since $\phi$ is a collection of orthogonal functions the off diagonal elements of $E(\phi(x)\phi(x)^T)$ are all zero. This gives 
+\begin{align*}
+MISE(D) &= E(r^{2}(x)) + \text{tr}\Big[(\hat{\alpha} - \alpha)^TE(\phi(x)\phi(x)^T)(\hat{\alpha} - \alpha)\Big]\\
+&= E(r^{2}(x)) + tr\Big[E(\phi(x)\phi(x)^{T})E\left((\hat{\alpha} - \alpha)(\hat{\alpha} - \alpha)^{T}\right)\Big]
+\end{align*}
+Now according to Hansen 2012 with $E(e(x)^2|x) = \sigma_x^2$, $\mathcal{Q} = E(\phi(x)\phi^T(x))$ and $\Omega = E(\phi(x)\phi^T(x)\sigma_x^2)$ due to the asymptotic behavior of this quantity we have 
+$$MISE(D)\simeq E(r^2(x)) + \frac{1}{n}tr\left(\mathcal{Q}^{-1}\Omega\right)$$
+Now, if we assume homoskedasticity, we see that $\Omega = \sigma^2\mathcal{Q}$. So plugging into the equation above we see that 
+$$MISE*(D)\simeq E(r^2(x)) + \frac{1}{n}tr\left(\sigma^2\mathcal{Q}^{-1}\mathcal{Q}\right) = E(r^2) + \frac{\sigma^2}{n}\dim(\mathcal{Q}) = E(r^2(x)) + \frac{\sigma^2 D}{n}$$
+Hansen 2012 then show that $$MISE*(D) = MISE(D)(1 + o(1))$$ so $MISE*$ is close to $MISE$. But notice, even in this simple case we still require estimation of $r(x)$, which is directly related to the estimation of the true regression mean function $f(x)$ which is what we started to estimate in the first place. Therefore, while an excellent theoretical tool, using $MISE*$ is not feasible. But as we will see later on we have 
+
+$$MISE \approx PRESS \approx E(CV)$$
+
+Therefore, we will use cross validation instead to choose $D$ but will have a theoretical justification of our approach. 
 \item Develop PSE and connect to MISE \textbf{(N)}
 
 Instead of MISE, one may be interested in calculating the Predicted Square Error (PSE) in order to find the optimal dimension with respect to PSE. If $x^*$  is a new value from $X \sim f(x)$, then our prediction of $Y$ given $X = x^*$ under the sieve estimator is $\hat{y}^* = \hat{f}(x^*)$. We then define PSE as the expectation of the squared error between $Y^*$, the actual value of the regression line at $X=x^*$, and $\hat{y}^*$. Observe that
