@@ -40,13 +40,13 @@ Given the sieve estimator defined as a series, there are two choices to be made:
 
 \begin{itemize}
 \item Polynomials $$ \phi_d(x) = \sum_{i=0}^{d} c_d x^d$$
-Within the polynomial class, choices of $c$ determine the exact form. For example $\textbf{c} = [0,0 \ldots 1]$ would correspond to a basis of $1,x,x^2,x^3...$. The Hermite Polynomials would correspond to another choice of $\textbf{c}$, which have nice theoretical properties because the Hermite Polynomials are orthogonal.
+Within the polynomial class, choices of $c$ determine the exact form. For example $\textbf{c} = [0,0 \ldots, 1]$ would correspond to a basis of $1,x,x^2,x^3...$. The Hermite Polynomials would correspond to another choice of $\textbf{c}$, which have nice theoretical properties because the Hermite Polynomials are orthogonal.
 
 \item Fourier Series
 
 $$ \phi_d(x) = a~cos(\pi d x) + b~sin(\pi d x)$$
 
-A polynomial basis is not a natural choice when $g(x)$ goes to zero and $\pm \infty$. Using a Fourier Series resolves this issue, which is a clear example of the problem suggesting an appropriate choice of basis function.
+A polynomial basis is not a natural choice when $g(x)$ goes to zero and $\pm \infty$. Using a Fourier Series resolves this issue, which is a clear example of the problem suggesting an appropriate choice of basis function.  Another natural choice is using a Fourier basis to approximate periodic functions, and a further reduction can be made to take just the sine or cosine terms if a priori model structure warrants such a choice.
 
 \item Gaussian 
 
