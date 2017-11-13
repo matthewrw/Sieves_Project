@@ -12,6 +12,7 @@
 
 
 \begin{document}
+
 \maketitle 
 
 
@@ -35,10 +36,33 @@ Such a formulation leads to traditional problems in linear models, so given the 
 
 \item Parameters - choice of basis function and dimensionality $D$ \textbf{(M)}
 
-Given the sieve estimator defined as a series, there are two choices to be made: the dimension of the model, and the choice of basis function.  
+Given the sieve estimator defined as a series, there are two choices to be made: the dimension of the model, and the choice of basis function.  $D$ must be data dependent to scale the complexity of the estimator with the data. Therefore, for now we will assume there is an algorithm to choose $D(n)$ which produces a $D_{opt}$, for some sense of optimality. There are a number of choices for the basis function, and we will highlight just a few possibilities here: 
+
+\begin{itemize}
+\item Polynomials $$ \phi_d(x) = \sum_{i=0}^{d} c_d x^d$$
+Within the polynomial class, choices of $c$ determine the exact form. For example $\textbf{c} = [0,0 \ldots 1]$ would correspond to a basis of $1,x,x^2,x^3...$. The Hermite Polynomials would correspond to another choice of $\textbf{c}$, which have nice theoretical properties because the Hermite Polynomials are orthogonal.
+
+\item Fourier Series
+
+$$ \phi_d(x) = a~cos(\pi d x) + b~sin(\pi d x)$$
+
+A polynomial basis is not a natural choice when $g(x)$ goes to zero and $\pm \infty$. Using a Fourier Series resolves this issue, which is a clear example of the problem suggesting an appropriate choice of basis function.
+
+\item Gaussian 
+
+$$  \phi_d(x) = \varphi^{(d)}(x)$$
+
+Where $\varphi^{(d)}(x)$ is the $dth$ derivative of the Normal density, which will be the Normal density with coefficients  of the $dth$ Hermite polynomial. Like the Fourier Series, the Gaussian series estimator has the nice property that it goes to zero at $\pm \infty$.
+
+\end{itemize}
+
+Other common choices for the basis function are Splines and Wavelets. A univariate polynomial spline has dimension of the number of partitions plus the degree of the spline.  The choice of basis in the univariate case extends naturally to the multidimensional case, where the multivariate basis is constructed as a tensor produce of the univariate basis. [Chen]
+
+
+
 \item Compare to Kernel Density estimates (Kernel and h) \textbf{(M)}
 
-The sieve estimator has a number of similarities to the Kernel Density estimation problem.  In both cases there are two choices to be made, one parameter that controls the bias variance tradeoff, and a second parameter that is related to underlying beliefs about the model.  So the bandwidth in the Kernel estimation problem is analogous to the choice of dimension. Intuitively, as the dimension increases or the bandwidth decreases the estimator is more sensitive to local behavior and produces a rougher estimate. Similarly, the choice of the Kernel is analogous to the choice of basis function; the choice impacts the final model and exact statistical properties of the estimator, yet is less interesting because any reasonable choice of basis function or kernel function produces a similar estimate. 
+With the setup of a series estimator with a choice of dimension and basis function the sieve estimator has a number of similarities to the Kernel Density estimation problem.  In both cases there are two choices to be made, one parameter that controls the bias variance tradeoff, and a second parameter that is related to underlying beliefs about the model.  So the bandwidth in the Kernel estimation problem is analogous to the choice of dimension. Intuitively, as the dimension increases or the bandwidth decreases the estimator is more sensitive to local behavior and produces a rougher estimate. Similarly, the choice of the Kernel is analogous to the choice of basis function; the choice impacts the final model and exact statistical properties of the estimator, yet is less interesting because any reasonable choice of basis function or kernel function produces a similar estimate. 
 
 \item Suppose $D$ is fixed - what is Bias, Variance, MSE, MISE \textbf{(B)}
 \item develop PSE \textbf{(N)}
