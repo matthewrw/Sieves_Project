@@ -1,6 +1,12 @@
 %%%%% Beginning of preamble %%%%%
 
 \documentclass[12pt]{article}  %What kind of document (article) and what size}
+
+\usepackage{amssymb, amsmath, amsthm}
+\usepackage{bbm}
+\usepackage[margin=1in]{geometry}
+\parskip = 0.1in
+
 \title{MA 750 - Final Project}
 \author{
   Nate Josephs\\
@@ -65,13 +71,35 @@ Other common choices for the basis function are Splines and Wavelets. A univaria
 With the setup of a series estimator with a choice of dimension and basis function the sieve estimator has a number of similarities to the Kernel Density estimation problem.  In both cases there are two choices to be made, one parameter that controls the bias variance tradeoff, and a second parameter that is related to underlying beliefs about the model.  So the bandwidth in the Kernel estimation problem is analogous to the choice of dimension. Intuitively, as the dimension increases or the bandwidth decreases the estimator is more sensitive to local behavior and produces a rougher estimate. Similarly, the choice of the Kernel is analogous to the choice of basis function; the choice impacts the final model and exact statistical properties of the estimator, yet is less interesting because any reasonable choice of basis function or kernel function produces a similar estimate. 
 
 \item Suppose $D$ is fixed - what is Bias, Variance, MSE, MISE \textbf{(B)}
-\item develop PSE \textbf{(N)}
-\item Connect MISE and PSE \textbf{(N)}
+\item Develop PSE and connect to MISE \textbf{(N)}
+
+Instead of MISE, one may be interested in calculating the Predicted Square Error (PSE) in order to find the optimal dimension with respect to PSE. If $x^*$  is a new value from $X \sim f(x)$, then our prediction of $Y$ given $X = x^*$ under the sieve estimator is $\hat{y}^* = \hat{f}(x^*)$. We then define PSE as the expectation of the squared error between $Y^*$, the actual value of the regression line at $X=x^*$, and $\hat{y}^*$. Observe that
+
+\begin{align*}
+PSE\Big(\hat{f}(x^*)\Big) &= E\Big[(Y^* - \hat{y}^*)^2\Big] \\
+&= E\Big[\Big(f(x^*) + e^* - \hat{f}(x^*)\Big)^2\Big] \\
+&= E\Big[\Big(e^* + (f(x^*) - \hat{f}(x^*)\Big)^2\Big] \\
+&= E\big[{e^*}^2\big] + 2E\Big[e^*\Big(f(x^*) - \hat{f}(x^*)\Big)\Big] + E\Big[\Big(f(x^*) - \hat{f}(x^*)\Big)^2\Big] \\
+&= E\Big[{(e^* - E[e^*])}^2\Big] + 2E\big[e^*\big]E\Big[\Big(f(x^*) - \hat{f}(x^*)\Big)\Big] + E\Big[\Big(f(x^*) - \hat{f}(x^*)\Big)^2\Big] \\
+&= Var(e^*) + 0 + \int E[(f(x) - \hat{f}(x))^2]g(x)dx \\
+& = Var(e^*) + MISE\Big(\hat{f}(x)\Big)
+\end{align*}
+
+Hence, the optimal dimension for our sieve estimator with respect to PSE will be the same as the optimal dimension with respect to MISE, since minimizing PSE is equivalent to minimizing MISE. Note that in our derivation, we use the fact that the errors are zero mean and $e^*$ is independent of the estimator. 
+
+If we define $\tilde{e} = Y^* - \hat{y}^*$, then $PSE\Big(\hat{f}(x^*)\Big) = E\big[\tilde{e}^2\big]$, which we may interpret as the expectation of a single leave-one-out (LOO) squared prediction error, where our estimator is fit on $X_1, \ldots, X_n$ and validated against $X = x^*$. This motivates us to consider LOO prediction errors for each $i = 1, \ldots, n$, which will reveal a data-driven process for choosing an optimal dimension $D$.
+
+For each $i$, define $\tilde{e}_i = y_i - \hat{y_{(i)}}$ where $\hat{y_{(i)}}$ is fit on $X_1, \ldots, X_{i-1}, X_{i+1}, \ldots, X_n$. Then $PSE\Big(\hat{f_{(i)}}(x)\Big) = E\big[\tilde{e_i}^2\big]$ and we define the cross-validation (CV) criterion as
+
+$$CV(\hat{f}) = \frac{1}{n}\sum_{i=1}^n \tilde{e}_i$$.
+
+By the linearity of expectation, we have that $E\Big[CV(\hat{f})\Big] = PSE\Big(\hat{f}(x^*)\Big)$, which we will utilize as our data-driven procedure for choosing $D_{opt}$. This estimate for $MISE$ has asymptotic results that overcome the infeasibility of finding $D_{opt}$ analytically.
+
 \end{itemize}
 \section{Estimating $D(n)$}
 
 \begin{itemize}
-\item Connect Cross Validation to PSE 
+\item Asymptotic Optimality of CV
 \item CV and other data dependent methods for choice of $D$
 \item Asymptotic Behavior of Cross Validation 
 \item Convergence rates
@@ -87,6 +115,7 @@ With the setup of a series estimator with a choice of dimension and basis functi
 
 \begin{itemize}
 \item Simulation - effect of basis sets and optimal dimension on the project 
+\item Show how $D_{opt}$ depends on $n$ (Hansen, Section 6)
 \item Application 
 \end{itemize}
 
