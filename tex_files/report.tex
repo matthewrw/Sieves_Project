@@ -31,11 +31,11 @@
 \section{Development of Sieves Estimation}
 
 \subsection{Series Estimators}
-Sieve estimators are a general class of estimators that can applied to a number of non parametric problems; for example density estimation and regression. Within this framework, a number of econometric models have been developed, such as for logistic regression, missing data, and measurement error. However, we will focus on a sieve estimator for non parametric regression as an example to explore in further detail. 
+Sieve estimators are a general class of estimators that can applied to a number of nonparametric problems such as density estimation and regression. Within this framework, several models from the econometric literature have been developed, addressing tasks such as logistic regression, imputation techniques, and measurement error. While sieves is a general framework, we will focus on a sieve estimation for nonparametric regression. 
 
-Recall that a sieve estimator for the unknown mean function $g(x)$ in the regression is a sequence of models. The motivation of sieve estimators leads to additional constraints, namely that the models should be have finite dimension, and that the complexity (i.e. dimension) increases as n increases.  Therefore the most natural choice for a sieve estimator and the choice we will focus on is a series estimator: 
-$$ \hat{g}(x) = \sum_{d=0}^{D} \alpha_{d} \phi_{d}(x)$$  [Hansen]
-Such a formulation leads to traditional problems in linear models, so given the dimension of  the model and a choice of basis function, finding the coefficients $\alpha$ has well known solutions.  The constraints in the formulation are light; namely the choice of basis function must approximate functions in $L^2$, among other natural constraints for the regression problem.  For completeness, examples of non linear sieves are Neural Networks, or penalized sieve estimators. [Chen]
+A sieve estimator for the unknown mean function $g(x)$ in a regression model is defined by a \textit{sequence} of functions approximating $g(x)$. With additional constraints such as the models should have finite dimension and the complexity (i.e. dimension) should increase as n increases, the most natural choice for the estimator is given by the \textit{series estimator} 
+$$ \hat{g}(x) = \sum_{d=0}^{D} \alpha_{d} \phi_{d}(x)$$ 
+This formulation leads to traditional problems in linear models, so given the dimension of the model and a choice of basis function, finding the coefficients $\alpha$ has well known solutions. The constraints in the formulation are light; namely the choice of basis function must approximate functions in $L^2$, among other typical constraints for the regression problem.  For completeness, examples of non linear sieves are Neural Networks, or penalized sieve estimators. 
 
 Given the sieve estimator defined as a series, there are two choices to be made: the dimension of the model, and the choice of basis function.  $D$ must be data dependent to scale the complexity of the estimator with the data. Therefore, for now we will assume there is an algorithm to choose $D$ which produces a $D_{opt}$, for some sense of optimality. There are a number of choices for the basis functions, and we will highlight just a few possibilities here. We will discuss optimal choices of dimension in the following section. 
 
@@ -155,20 +155,14 @@ Consider a canonical regression problem: the waiting period of the Old Faithful 
 First, consider a subset of the geyser data with only 40 data points.  Here, as expected, sieve estimators with a low dimension before the best. However, note that polynomials of low degree still perform better than simply a linear model.
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.45\textwidth]{pup.jpg}
-    \includegraphics[width=0.45\textwidth]{pup.jpg}\\
-    \includegraphics[width=0.45\textwidth]{pup.jpg}\\
-    \caption{comments}
-    \label{fig:pup}{}
+    \includegraphics[width=0.45\textwidth, height = 6cm]{Geyser_Small_Data.pdf}
+    \includegraphics[width=0.45\textwidth, height = 6cm]{Geyser_Full.pdf}\\
+    \includegraphics[width=0.45\textwidth, height = 6cm]{Geyser_PSE.pdf}\\
+    \caption{Sieves Analysis of Geyser dataset. We see that increasing our sample size leads to differing optimal models}
+    \label{fig:Geyser}{}
 \end{figure}
 
-
-[[Fig 1 of Geyser data - with estimators for different D - few points]]
-[[Fig 2 of Geyser data - with estimators for different D - full data set]]
-[[Fig 3 - Plot CV PSE]]
-
 With the full 272 data points, the optimal dimension is 4, which has increased from the case with only 40 data points. Note that the optimal dimension increases much more slowly than N. Again, if D grows too quickly (I.e. 11) then the data is overfit and the variance is large. 
-
 
 
 \subsection{Econometric Example}
