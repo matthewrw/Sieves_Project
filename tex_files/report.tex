@@ -136,6 +136,28 @@ By the linearity of expectation, we have that $E\Big[CV(\hat{f})\Big] = PSE\Big(
 
 \section{Real Data Application}
 
+\subsection{Geyser Data Example}
+
+Consider a canonical regression problem: the waiting period of the Old Faithful geyser and a function  of the previous eruption duration.  Here, we demonstrate that the sieve estimator gives similar results as other nonparametric regression estimates, but with many fewer degrees of freedom. The \textit{faithful} dataset has 272 data points, which is small, but sufficient to demonstrate the sieve estimator. As in the simulation above, a polynomial basis is used.
+
+First, consider a subset of the geyser data with only 40 data points.  Here, as expected, sieve estimators with a low dimension before the best. However, note that polynomials of low degree still perform better than simply a linear model.
+
+[[Fig 1 of Geyser data - with estimators for different D - few points]]
+[[Fig 2 of Geyser data - with estimators for different D - full data set]]
+[[Fig 3 - Plot CV PSE]]
+
+With the full 272 data points, the optimal dimension is 4, which has increased from the case with only 40 data points. Note that the optimal dimension increases much more slowly than N. Again, if D grows too quickly (I.e. 11) then the data is overfit and the variance is large. 
+
+
+
+\subsection{Econometric Example}
+
+De Sa and Portugal apply sieve estimators to model a loss function of inflation and output gap for the Brazilian Central Bank and the Federal Reserve for their determination of interest rates.  The sieve estimator is chosen because the sieve estimator allows for global computation of the derivatives of the estimator. Therefore, a polynomial basis is a natural choice for the easy interpretation of derivatives in the model; specifically a Chebyshev Polynomial basis is used because the loss function is defined on $[-1,1]$.  A set of 14 variables is chosen to be the basis, and a sieve estimator is fit. If any of the coefficients of degree 3 or higher are significantly different than zero, then De Sa and Portugal would conclude third derivative is non-zero and therefore the loss function is asymmetric. 
+
+In the sieve estimator, the cross term between inflation and the output gap is near zero, so the problem is separable into the inflation and output gap components. Based on the sieve estimator the Federal Reserve was more concerned about inflation than the output gap, which confirmed other studies. Furthermore, the sieve estimator does have non-zero third derivative with respect to inflation, and so it is concluded that the Federal Reserve was more concerned about high inflation than deflation from 1960-2011. However, when less data by considering only 1982-2011, then there was not significance to conclude that there was asymmetry.  
+
+This example uses sieve estimators in a multivariate inferential context, which is a natural extension of the single dimensional estimator discussed in sections 2 and 3. However, the advantage of the sieve estimator are apparent by specifying a general, closed-form, global functional form which results in intuitive determination of parameters of interest in the economic model. 
+
 
 \section{Conclusion}
 
