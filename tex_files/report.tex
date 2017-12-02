@@ -4,11 +4,13 @@
 
 \usepackage{amssymb, amsmath, amsthm}
 \usepackage{bbm}
+\usepackage{graphicx}
 \usepackage{biblatex}
 \addbibresource{references.bib}
 \usepackage[margin=1in]{geometry}
+\graphicspath{ {report-figures/} }
+\usepackage{subcaption}
 \parskip = 0.1in
-
 \title{MA 750 - Final Project}
 \author{
   Nate Josephs\\
@@ -89,7 +91,7 @@ As we vary $D$ we greatly reduce the variance in $r(x_i)$ as the more complex mo
 &= \phi^{T}(x)\hat{\alpha} - \phi^{T}(x)\alpha + r(x)\\
 &= \phi(x)\phi^{T}(x)\left(\hat{\alpha} - \alpha\right) + r(x)\\
 &
-\end{align*}
+\end{align*}{}
 Assume that the underlying $X$ distribution is $g$. Then 
 \begin{align*}
 MISE(D) &=\int (\hat{f}(x) - f(x))^2 g(x)dx\\
@@ -104,7 +106,7 @@ MISE(D) &= E(r^{2}(x)) + \text{tr}\Big[(\hat{\alpha} - \alpha)^TE(\phi(x)\phi(x)
 \end{align*}
 Now according to Hansen 2012 with $E(e(x)^2|x) = \sigma_x^2$, $\mathcal{Q} = E(\phi(x)\phi^T(x))$ and $\Omega = E(\phi(x)\phi^T(x)\sigma_x^2)$ due to the asymptotic behavior of this quantity we have 
 $$MISE(D)\simeq E(r^2(x)) + \frac{1}{n}tr\left(\mathcal{Q}^{-1}\Omega\right)$$
-Now, if we assume homoskedasticity, we see that $\Omega = \sigma^2\mathcal{Q}$. So plugging into the equation above we see that 
+Now, if we assume homoscedasticity, we see that $\Omega = \sigma^2\mathcal{Q}$. So plugging into the equation above we see that 
 $$MISE*(D)\simeq E(r^2(x)) + \frac{1}{n}tr\left(\sigma^2\mathcal{Q}^{-1}\mathcal{Q}\right) = E(r^2) + \frac{\sigma^2}{n}\dim(\mathcal{Q}) = E(r^2(x)) + \frac{\sigma^2 D}{n}$$
 Hansen 2012 then show that $$MISE*(D) = MISE(D)(1 + o(1))$$ so $MISE*$ is close to $MISE$. But notice, even in this simple case we still require estimation of $r(x)$, which is directly related to the estimation of the true regression mean function $f(x)$ which is what we started to estimate in the first place. Therefore, while an excellent theoretical tool, using $MISE*$ in practice is infeasible. We will, however, use this theoretical exercise to inform our data dependent choices of $D$ which we give in the following sections.
 
@@ -135,14 +137,22 @@ $$CV(\hat{f}) = \frac{1}{n}\sum_{i=1}^n \tilde{e}_i$$.
 By the linearity of expectation, we have that $E\Big[CV(\hat{f})\Big] = PSE\Big(\hat{f}(x^*)\Big)$, which we will utilize as our data-driven procedure for choosing $D_{opt}$. As in Hansen 2012, this estimate of $D$ has the nice property that it is asymptotically equivalent to the $D$ chosen from $MISE$.
 \section{Simulation Study}
 
-
 \section{Real Data Application}
-
 \subsection{Geyser Data Example}
 
 Consider a canonical regression problem: the waiting period of the Old Faithful geyser and a function  of the previous eruption duration.  Here, we demonstrate that the sieve estimator gives similar results as other nonparametric regression estimates, but with many fewer degrees of freedom. The \textit{faithful} dataset has 272 data points, which is small, but sufficient to demonstrate the sieve estimator. As in the simulation above, a polynomial basis is used.
 
 First, consider a subset of the geyser data with only 40 data points.  Here, as expected, sieve estimators with a low dimension before the best. However, note that polynomials of low degree still perform better than simply a linear model.
+{pup.pic}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.45\textwidth]{pup.jpg}
+    \includegraphics[width=0.45\textwidth]{pup.jpg}\\
+    \includegraphics[width=0.45\textwidth]{pup.jpg}\\
+    \caption{comments}
+    \label{fig:pup}{}
+\end{figure}
+
 
 [[Fig 1 of Geyser data - with estimators for different D - few points]]
 [[Fig 2 of Geyser data - with estimators for different D - full data set]]
