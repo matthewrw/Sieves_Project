@@ -19,13 +19,10 @@
   \and 
   Ben Draves
 }
-
-
 \begin{document}
 
 \maketitle 
-
-\begin{abstract} One of the most fundamental tasks in Statistics is to understand the relationship between two random variables, $X,Y$, via an unspecified function $Y = f(X)$. Typically, $f(\cdot)$ is unknown and must be estimated from data relating $X$ and $Y$. Estimating $f(\cdot)$ using maximum likelihood yields no meaningful solution when we consider \textit{all} functions. Hence statisticians turn to estimating $f\in\mathcal{F}$ where $\mathcal{F}$ is a function space with some structure that provides meaningful solutions to the problem at hand. In most cases however, these function spaces are fixed, with no regard to the sample from which we are trying to infer $f$. In order to utilize all information inherent in the data while still imposing structure on $\mathcal{F}$, \textit{Sieve Estimation} allows $\mathcal{F}$ to grow in complexity as $n$ increases. Heuristically, as $n$ increases, we attain a more robust understanding of $f$ and should allow our modeling procedure to consider more complex forms of $f$. Sieve achieves this by introducing more complex functions to $\mathcal{F}$ as $n$ increases. Here, we consider the function space $$\mathcal{F}_n = \Big\{g(x): g(x) = \sum_{d=1}^{D(n)}\beta_dx^d\Big\}$$ where $D(n)\to\infty$ as $n\to\infty$. We focus our efforts on estimating $D(n)$ as a function of the data. This report is organized as follows; in sections 1 and 2 we summarize some of the foundational results on Sieve estimation and introduce notation used throughout the report. In section 3 we introduce some theoretical applications and in section 4 we offer some methodologies of estimating $D(n)$. Lastly, in section 5 we analyze our methods via intensive simulation study and a real data application.
+\begin{abstract} One of the most fundamental tasks in Statistics is to understand the relationship between two random variables, $X,Y$, via an unspecified function $Y = f(X)$. Typically, $f(\cdot)$ is unknown and must be estimated from data relating $X$ and $Y$. Estimating $f(\cdot)$ using maximum likelihood yields no meaningful solution when we consider \textit{all} functions. Hence statisticians turn to estimating $f\in\mathcal{F}$ where $\mathcal{F}$ is a function space with some structure that provides meaningful solutions to the problem at hand. In most cases however, these function spaces are fixed, with no regard to the sample from which we are trying to infer $f$. In order to utilize all information inherent in the data while still imposing structure on $\mathcal{F}$, \textit{Sieve Estimation} allows $\mathcal{F}$ to grow in complexity as $n$ increases. Heuristically, as $n$ increases, we attain a more robust understanding of $f$ and should allow our modeling procedure to consider more complex forms of $f$. Sieve achieves this by introducing more complex functions to $\mathcal{F}$ as $n$ increases. Here, we consider the function space $$\mathcal{F}_n = \Big\{g(x): g(x) = \sum_{d=0}^{D}\alpha_dx^d\Big\}$$ where $D\to\infty$ as $n\to\infty$. We focus our efforts on estimating $D$ as a function of the data. This report is organized as follows; in sections 1 and 2 we summarize some of the foundational results on Sieve estimation and introduce notation used throughout the report. In section 3 we introduce some theoretical applications and in section 4 we offer some methodologies of estimating $D(n)$. Lastly, in section 5 we analyze our methods via intensive simulation study and a real data application.
 
 
 \end{abstract}
@@ -47,7 +44,6 @@ Given the sieve estimator defined as a series, there are two choices to be made:
 One popular choice of functional estimator is given by the series estimator with polynomial basis functions. Within the polynomial class, choices of coefficients uniquely determine the exact form for the estimate. For example the coefficient vector $\textbf{c} = [0,0 \ldots, 1]$ would correspond to a basis of $\{x^{k}: k = 0,1,2,\ldots\}$. The Hermite Polynomials would correspond to another choice of $\textbf{c}$, which have desirable theoretical properties such as othronormality. While a powerful class of estimators, polynomial basis functions are not a natural choice when $g(x)$ goes to zero at $\pm \infty$. Using a Fourier Series resolves this issue, which again highlights the importance of an appropriate choice of basis function in function estimator. With several applications in signal processing, the Fourier basis is proven to be a natural choice to approximate periodic functions. Lastly the Gaussian basis set, given by $\{\varphi^{(d)}:d= 0,1,2,\dots\}$ where $\varphi^{(d)}$ is $dth$ derivative of the Normal density has several similar properties of the Fourier basis. Moreover, we see that these functions have a natural probabilistic interpretation (as do the Hermite Polynomials) which could be quite useful in inferential settings. The functional forms of these basis sets are given in the Table \ref{tab:basis}. 
 
 \begin{table}[h]
-\label{tab:basis}
 \begin{center}
 \begin{tabular}{|c|c|}
 \hline
@@ -59,6 +55,7 @@ Guassian &$\varphi^{(d)}(x)$\\
 \hline
 \end{tabular}
 \caption {Proposed series estimators with basis function $\phi$ for $\hat{g}(x)$ }
+\label{tab:basis}
 \end{center}
 \end{table}
 
@@ -137,13 +134,25 @@ $$CV(\hat{f}) = \frac{1}{n}\sum_{i=1}^n \tilde{e}_i$$.
 By the linearity of expectation, we have that $E\Big[CV(\hat{f})\Big] = PSE\Big(\hat{f}(x^*)\Big)$, which we will utilize as our data-driven procedure for choosing $D_{opt}$. As in Hansen 2012, this estimate of $D$ has the nice property that it is asymptotically equivalent to the $D$ chosen from $MISE$.
 \section{Simulation Study}
 
+We simulated $N = 150$ data points from the model
+$$Y = \sin^3(2\pi X^3) + \epsilon\hspace{1em}\text{where}\hspace{1em}X \sim N(0,1)\hspace{1em}\text{and}\hspace{1em}
+\epsilon \sim N(0, .2)$$
+with the goal of fitting a polynomial series estimator to the data. From $n = 10$ to $N$ in increments of $10$, we fit such models with degrees of complexity varying from $1$ to $8$. We repeated this on $200$ separate datasets and plotted the PSE against $n$. The results of the simulation are summarized in Figure \ref{fig:sim}. 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth, height= 6cm]{sim_plot.pdf}  
+    \caption{comments}
+    \label{fig:sim}{}
+\end{figure}
+ As expected, the PSE decreases as $n$ increases. Furthermore, the optimal degree increases with $n$. A linear model is best only for $n=10$. At $n=20$, a quadratic fit minimizes the PSE. However, by $n=30$ a fifth degree polynomial is best and remains so until $n=50$. Ultimately, a sixth degree polynomial performs very well and is not supplanted by a seventh degree polynomial until $n=90$. We note that an eighth degree polynomial never minimizes the PSE.
+
+
 \section{Real Data Application}
 \subsection{Geyser Data Example}
 
 Consider a canonical regression problem: the waiting period of the Old Faithful geyser and a function  of the previous eruption duration.  Here, we demonstrate that the sieve estimator gives similar results as other nonparametric regression estimates, but with many fewer degrees of freedom. The \textit{faithful} dataset has 272 data points, which is small, but sufficient to demonstrate the sieve estimator. As in the simulation above, a polynomial basis is used.
 
 First, consider a subset of the geyser data with only 40 data points.  Here, as expected, sieve estimators with a low dimension before the best. However, note that polynomials of low degree still perform better than simply a linear model.
-{pup.pic}
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.45\textwidth]{pup.jpg}
