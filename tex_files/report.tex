@@ -141,7 +141,7 @@ with the goal of fitting a polynomial series estimator to the data. From $n = 10
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth, height= 6cm]{sim_plot.pdf}  
-    \caption{comments}
+    \caption{The effect of the $n$ on $PSE$. From the graph we clearly see the optimal functional form relies on the sample size, $n$.}
     \label{fig:sim}{}
 \end{figure}
  As expected, the PSE decreases as $n$ increases. Furthermore, the optimal degree increases with $n$. A linear model is best only for $n=10$. At $n=20$, a quadratic fit minimizes the PSE. However, by $n=30$ a fifth degree polynomial is best and remains so until $n=50$. Ultimately, a sixth degree polynomial performs very well and is not supplanted by a seventh degree polynomial until $n=90$. We note that an eighth degree polynomial never minimizes the PSE.
