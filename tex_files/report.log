@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  2 DEC 2017 20:57
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  3 DEC 2017 15:46
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -496,11 +496,12 @@ Package biblatex Info: Automatic encoding selection.
 \openout4 = `report.bcf'.
 
 Package biblatex Info: Trying to load bibliographic data...
-Package biblatex Info: ... file 'report.bbl' not found.
+Package biblatex Info: ... file 'report.bbl' found.
 
-No file report.bbl.
+(./report.bbl)
 Package biblatex Info: Reference section=0 on input line 22.
 Package biblatex Info: Reference segment=0 on input line 22.
+
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -549,52 +550,67 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 {/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 
-LaTeX Warning: Citation 'Chen' on page 2 undefined on input line 38.
+LaTeX Warning: Citation 'Chen' on page 2 undefined on input line 41.
 
 [2]
 
-LaTeX Warning: Citation 'Chen' on page 3 undefined on input line 63.
+LaTeX Warning: Citation 'Chen' on page 3 undefined on input line 65.
 
 [3] [4]
-Overfull \hbox (38.66652pt too wide) in paragraph at lines 94--94
+Overfull \hbox (38.66652pt too wide) in paragraph at lines 96--96
 [] 
  []
 
-[5] [6] <report-figures/sim_plot.pdf, id=35, 614.295pt x 794.97pt>
+[5]
+
+LaTeX Warning: Citation 'Hansen' on page 6 undefined on input line 102.
+
+
+LaTeX Warning: Citation 'Hansen' on page 6 undefined on input line 105.
+
+[6]
+
+LaTeX Warning: Citation 'Hansen' on page 7 undefined on input line 131.
+
+[7] <report-figures/sim_plot.pdf, id=39, 614.295pt x 794.97pt>
 File: report-figures/sim_plot.pdf Graphic file (type pdf)
 
 <use report-figures/sim_plot.pdf>
-Package pdftex.def Info: report-figures/sim_plot.pdf used on input line 139.
+Package pdftex.def Info: report-figures/sim_plot.pdf used on input line 140.
 (pdftex.def)             Requested size: 375.8067pt x 170.709pt.
- [7 <./report-figures/sim_plot.pdf>]
-<report-figures/Geyser_Small_Data.pdf, id=45, 614.295pt x 794.97pt>
+
+<report-figures/Geyser_Small_Data.pdf, id=40, 614.295pt x 794.97pt>
 File: report-figures/Geyser_Small_Data.pdf Graphic file (type pdf)
 
 <use report-figures/Geyser_Small_Data.pdf>
 Package pdftex.def Info: report-figures/Geyser_Small_Data.pdf used on input lin
-e 154.
+e 155.
 (pdftex.def)             Requested size: 211.38834pt x 170.709pt.
 
-<report-figures/Geyser_Full.pdf, id=46, 614.295pt x 794.97pt>
+<report-figures/Geyser_Full.pdf, id=41, 614.295pt x 794.97pt>
 File: report-figures/Geyser_Full.pdf Graphic file (type pdf)
 
 <use report-figures/Geyser_Full.pdf>
-Package pdftex.def Info: report-figures/Geyser_Full.pdf used on input line 155.
+Package pdftex.def Info: report-figures/Geyser_Full.pdf used on input line 156.
 
 (pdftex.def)             Requested size: 211.38834pt x 170.709pt.
 
-<report-figures/Geyser_PSE.pdf, id=47, 614.295pt x 794.97pt>
+<report-figures/Geyser_PSE.pdf, id=42, 614.295pt x 794.97pt>
 File: report-figures/Geyser_PSE.pdf Graphic file (type pdf)
 
 <use report-figures/Geyser_PSE.pdf>
-Package pdftex.def Info: report-figures/Geyser_PSE.pdf used on input line 156.
+Package pdftex.def Info: report-figures/Geyser_PSE.pdf used on input line 157.
 (pdftex.def)             Requested size: 211.38834pt x 170.709pt.
- [8 <./report-figures/Geyser_Small_Data.pdf> <./report-figures/Geyser_Full.pdf>
- <./report-figures/Geyser_PSE.pdf>] [9]
+ [8 <./report-figures/sim_plot.pdf>]
 
-LaTeX Warning: Empty bibliography on input line 183.
+LaTeX Warning: Citation 'Sa' on page 9 undefined on input line 167.
 
-[10] (./report.aux)
+[9 <./report-figures/Geyser_Small_Data.pdf> <./report-figures/Geyser_Full.pdf> 
+<./report-figures/Geyser_PSE.pdf>]
+
+LaTeX Warning: Empty bibliography on input line 184.
+
+[10] [11] (./report.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -608,13 +624,13 @@ Package logreq Info: Writing requests to 'report.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 10497 strings out of 492995
- 177468 string characters out of 6132704
- 614076 words of memory out of 5000000
- 13930 multiletter control sequences out of 15000+600000
- 16820 words of font info for 64 fonts, out of 8000000 for 9000
+ 10503 strings out of 492995
+ 177528 string characters out of 6132704
+ 614110 words of memory out of 5000000
+ 13932 multiletter control sequences out of 15000+600000
+ 17521 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,12n,40p,1367b,1061s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 42i,12n,40p,1662b,1061s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
@@ -629,10 +645,10 @@ xlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/tex
 live/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texli
 ve/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texliv
 e/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on report.pdf (10 pages, 258381 bytes).
+Output written on report.pdf (11 pages, 262427 bytes).
 PDF statistics:
- 117 PDF objects out of 1000 (max. 8388607)
- 82 compressed objects within 1 object stream
+ 120 PDF objects out of 1000 (max. 8388607)
+ 84 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
