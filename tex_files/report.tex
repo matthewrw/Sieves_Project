@@ -25,6 +25,8 @@
 \begin{abstract} One of the most fundamental tasks in Statistics is to understand the relationship between two random variables, $X,Y$, via an unspecified function $Y = f(X)$. Typically, $f(\cdot)$ is unknown and must be estimated from data relating $X$ and $Y$. Estimating $f(\cdot)$ using maximum likelihood yields no meaningful solution when we consider \textit{all} functions. Hence statisticians turn to estimating $f\in\mathcal{F}$ where $\mathcal{F}$ is a function space with some structure that provides closed form solutions. In most cases however, these function spaces are fixed, with no regard to the sample from which we are trying to infer $f$. In order to utilize all information inherent in the data while still imposing structure on $\mathcal{F}$, \textit{Sieve Estimation} allows $\mathcal{F}$ to grow in complexity as $n$ increases. Heuristically, as $n$ increases, we attain a more robust understanding of $f$ and should allow our modeling procedure to consider more complex forms of $f$. Sieve Estimation achieves this by introducing more complex functions to $\mathcal{F}$ as $n$ increases. Here, we consider the function space $$\mathcal{F}_n = \Big\{g(x): g(x) = \sum_{d=0}^{D}\alpha_d\phi_d(x)\Big\}$$ for basis function $\phi_d$ and where $D\to\infty$ as $n\to\infty$. We focus our efforts on estimating $D$ as a function of the data. We show that the optimal choice of $D$ is asymptotically equivalent to the estimate chosen via cross-validation. We also show the importance of correct choice of $D$ in an intensive simulation study and conclude with applying sieve estimation to a real dataset. 
 \end{abstract}
 
+
+
 \section{Introduction}
 In multivariate statistical analysis, statisticians often try to related two unknown quantities $X$,$Y$ by an unspecified function $f(\cdot)$. In maximum likelihood settings, this problem has no closed form solution when we maximize over a general function space. Instead, we search over reduced function spaces with known structure and therefore impose that functional structure on our estimate $\hat{f}$. A lot of the statistical literature focuses on properties of these estimates when the function space is given. For example, the theory of linear models focuses on estimates of the form $$\mathcal{F} = \Big\{g(x): g(x) = \beta_0 + \sum_{i=1}^{p}\beta_ix_i\Big\}$$ where $E[Y|X]$ is linear in the parameters of the model. While this class of estimators provides several nice properties, the function space is generally quite restrictive as it does not allow any complex nonlinear interactions. In nonparametric settings, statisticians enlarge the function space $\mathcal{F}$ by allowing the function to be locally adaptive. An example of a function space of this form is given by the Nadaraya-Watson regression estimators $$\mathcal{F} = \Big\{g(x): g(x) = \frac{\sum_{i=1}^n K_h(X_i - x)y_i}{\sum_{i=1}^n K_h(X_i - x)}\Big\}$$
 which is parameter free and instead relies on the sample data. It is clear that changing $\mathcal{F}$ greatly affects the estimates $\hat{f}$ and that the complexity of $\mathcal{F}$ can vary dramatically. Statisticians typically make $\textit{a priori}$ choices of $\mathcal{F}$ and only consider estimates of that form throughout their analysis of $(X,Y)$. However, as one collects more data of the form $(x_i, y_i)$, our understanding of $f(\cdot)$ should improve. That is, we should allow our estimates to become increasingly complex as our sample grows. \textit{Sieve Estimation} enables this behavior by constructing a sequence of function spaces $\{\mathcal{F}_n\}_{n=1}^{\infty}$ such that $\mathcal{F}_1\subset\mathcal{F}_2\subset\mathcal{F}_3\subset\ldots$. Then, depending on the sample size $n$, the estimation procedure is performed over the optimal space $\mathcal{F}_{opt}$. 
@@ -185,6 +187,11 @@ Code for the analysis and figures is available at \url{https://github.com/matthe
 
 \nocite{*}
 \printbibliography[heading=none]
+
+\newpage
+\appendix
+\section{Code}
+\input{code.tex}
 
 \end{document} 
 
