@@ -61,7 +61,6 @@ Guassian &$\varphi^{(d)}(x)$\\
 \label{tab:basis}
 \end{center}
 \end{table}
-%(Do we need this? -Nate)Where $\phi^{(d)}(x)$ is the $dth$ derivative of the Normal density, which will be the Normal density with coefficients  of the $dth$ Hermite polynomial. Like the Fourier Series, the Gaussian series estimator has the nice property that it goes to zero at $\pm \infty$.
 Other common choices for the basis function are Splines and Wavelets.  Different splines can be used as the sieve estimator, however the exact form and behavior depends on the choice of spline and the number of free parameters it has.  This result can be shown by considering a constrained optimization problem over the squares of the $Dth$ derivatives of the class of potential sieve estimators. Also note that the choice of basis in the univariate case extends naturally to the multidimensional case, where the multivariate basis is constructed as a tensor produce of the univariate basis \cite{Chen}.
 
 Under the setup of a series estimator with a choice of dimension and basis function, the sieve estimator has a number of similarities to the Kernel Density estimation problem.  In both cases there are two choices to be made: one parameter that controls the bias-variance tradeoff and a second parameter that is related to underlying beliefs about the model.  The bandwidth in the Kernel estimation problem is analogous to the choice of dimension. Intuitively, as the dimension increases or the bandwidth decreases the estimator is more sensitive to local behavior and produces a rougher estimate. Similarly, the choice of the Kernel is analogous to the choice of basis function. This choice impacts the final model and exact statistical properties of the estimator, yet is less interesting because any reasonable choice of basis function or kernel function produces a similar estimate. 
@@ -180,9 +179,12 @@ Further exploration could be done by considering a penalized sieve estimator as 
 
 
 \section{References}
+
+Code for the analysis and figures is available at \url{https://github.com/matthewrw/Sieves_Project/tree/master/R_code} and may be used freely with proper acknowledgment.
+
+
 \nocite{*}
 \printbibliography[heading=none]
-
 
 \end{document} 
 
