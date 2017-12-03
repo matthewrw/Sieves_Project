@@ -22,9 +22,7 @@
 \begin{document}
 
 \maketitle 
-\begin{abstract} One of the most fundamental tasks in Statistics is to understand the relationship between two random variables, $X,Y$, via an unspecified function $Y = f(X)$. Typically, $f(\cdot)$ is unknown and must be estimated from data relating $X$ and $Y$. Estimating $f(\cdot)$ using maximum likelihood yields no meaningful solution when we consider \textit{all} functions. Hence statisticians turn to estimating $f\in\mathcal{F}$ where $\mathcal{F}$ is a function space with some structure that provides meaningful
-%what does meaningful mean? also we use it twice
-solutions to the problem at hand. In most cases however, these function spaces are fixed, with no regard to the sample from which we are trying to infer $f$. In order to utilize all information inherent in the data while still imposing structure on $\mathcal{F}$, \textit{Sieve Estimation} allows $\mathcal{F}$ to grow in complexity as $n$ increases. Heuristically, as $n$ increases, we attain a more robust understanding of $f$ and should allow our modeling procedure to consider more complex forms of $f$. Sieve achieves this by introducing more complex functions to $\mathcal{F}$ as $n$ increases. Here, we consider the function space $$\mathcal{F}_n = \Big\{g(x): g(x) = \sum_{d=0}^{D}\alpha_d\phi_d(x)\Big\}$$ for basis function $\phi_d$ and where $D\to\infty$ as $n\to\infty$. We focus our efforts on estimating $D$ as a function of the data. We show that the optimal choice of $D$ is asympotitcally equivalent to the estimate chosen via cross-validation. We show the importance of correct choice of $D$ in an intensive simulation study and conclude with applying Sieve Estimation to a real dataset. 
+\begin{abstract} One of the most fundamental tasks in Statistics is to understand the relationship between two random variables, $X,Y$, via an unspecified function $Y = f(X)$. Typically, $f(\cdot)$ is unknown and must be estimated from data relating $X$ and $Y$. Estimating $f(\cdot)$ using maximum likelihood yields no meaningful solution when we consider \textit{all} functions. Hence statisticians turn to estimating $f\in\mathcal{F}$ where $\mathcal{F}$ is a function space with some structure that provides closed form solutions. In most cases however, these function spaces are fixed, with no regard to the sample from which we are trying to infer $f$. In order to utilize all information inherent in the data while still imposing structure on $\mathcal{F}$, \textit{Sieve Estimation} allows $\mathcal{F}$ to grow in complexity as $n$ increases. Heuristically, as $n$ increases, we attain a more robust understanding of $f$ and should allow our modeling procedure to consider more complex forms of $f$. Sieve achieves this by introducing more complex functions to $\mathcal{F}$ as $n$ increases. Here, we consider the function space $$\mathcal{F}_n = \Big\{g(x): g(x) = \sum_{d=0}^{D}\alpha_d\phi_d(x)\Big\}$$ for basis function $\phi_d$ and where $D\to\infty$ as $n\to\infty$. We focus our efforts on estimating $D$ as a function of the data. We show that the optimal choice of $D$ is asympotitcally equivalent to the estimate chosen via cross-validation. We show the importance of correct choice of $D$ in an intensive simulation study and conclude with applying Sieve Estimation to a real dataset. 
 \end{abstract}
 
 \section{Introduction}
@@ -102,11 +100,11 @@ Now recall that $r(x)$ was a projection error during our OLS estimate of $\alpha
 MISE(D) &= E(r^{2}(x)) + \text{tr}\Big[(\hat{\alpha} - \alpha)^TE(\phi(x)\phi(x)^T)(\hat{\alpha} - \alpha)\Big]\\
 &= E(r^{2}(x)) + tr\Big[E(\phi(x)\phi(x)^{T})E\left((\hat{\alpha} - \alpha)(\hat{\alpha} - \alpha)^{T}\right)\Big]
 \end{align*}
-If $E(e(x)^2|x) = \sigma_x^2$, $\mathcal{Q} = E(\phi(x)\phi^T(x))$ and $\Omega = E(\phi(x)\phi^T(x)\sigma_x^2)$, then Hansen (2012) showed that 
+If $E(e(x)^2|x) = \sigma_x^2$, $\mathcal{Q} = E(\phi(x)\phi^T(x))$ and $\Omega = E(\phi(x)\phi^T(x)\sigma_x^2)$, then Hansen (2012)\cite{Hansen}} showed that 
 $$MISE(D)\simeq E(r^2(x)) + \frac{1}{n}tr\left(\mathcal{Q}^{-1}\Omega\right)$$
 due to the asymptotic behavior of $MISE(D)$. Now, if we assume homoscedasticity, we see that $\Omega = \sigma^2\mathcal{Q}$. So plugging into the equation above we get
 $$MISE^*(D)\simeq E(r^2(x)) + \frac{1}{n}tr\left(\sigma^2\mathcal{Q}^{-1}\mathcal{Q}\right) = E(r^2) + \frac{\sigma^2}{n}\dim(\mathcal{Q}) = E(r^2(x)) + \frac{\sigma^2 D}{n}$$
-Hansen also demonstrated that $$MISE^*(D) = MISE(D)(1 + o(1))$$ so $MISE^*$ is close to $MISE$. But notice, even in this simple case we still require estimation of $r(x)$, which is directly related to the estimation of the true regression mean function $f(x)$, which is what we started to estimate in the first place. Therefore, while an excellent theoretical tool, using $MISE^*$ in practice is infeasible. We will, however, use this theoretical exercise to inform our data dependent choices of $D$ which we give in the following sections.
+Hansen \cite{Hansen} also demonstrated that $$MISE^*(D) = MISE(D)(1 + o(1))$$ so $MISE^*$ is close to $MISE$. But notice, even in this simple case we still require estimation of $r(x)$, which is directly related to the estimation of the true regression mean function $f(x)$, which is what we started to estimate in the first place. Therefore, while an excellent theoretical tool, using $MISE^*$ in practice is infeasible. We will, however, use this theoretical exercise to inform our data dependent choices of $D$ which we give in the following sections.
 
 \subsection{Prediction Squared Error}
 
@@ -132,7 +130,7 @@ For each $i$, define $\tilde{e}_i = y_i - \hat{y_{(i)}}$ where $\hat{y_{(i)}}$ i
 
 $$CV(\hat{f}) = \frac{1}{n}\sum_{i=1}^n \tilde{e}_i$$.
 
-By the linearity of expectation, we have that $E\Big[CV(\hat{f})\Big] = PSE\Big(\hat{f}(x^*)\Big)$, which we will utilize as our data-driven procedure for choosing $D_{opt}$. As in Hansen 2012, this estimate of $D$ has the nice property that it is asymptotically equivalent to the $D$ chosen from $MISE$.
+By the linearity of expectation, we have that $E\Big[CV(\hat{f})\Big] = PSE\Big(\hat{f}(x^*)\Big)$, which we will utilize as our data-driven procedure for choosing $D_{opt}$. As in Hansen 2012 \cite{Hansen}, this estimate of $D$ has the nice property that it is asymptotically equivalent to the $D$ chosen from $MISE$.
 \section{Simulation Study}
 
 We simulated $N = 150$ data points from the model
