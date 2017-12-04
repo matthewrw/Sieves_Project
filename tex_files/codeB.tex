@@ -1,6 +1,6 @@
 
 % Matthew add the Geyser code below
-\begin{verbatim}
+\begin{lstlisting}
 
 Y_i <- faithful$waiting
 X_i <- faithful$eruptions
@@ -61,4 +61,4 @@ for (d in D) {
 p + geom_line( data = predicted_df[predicted_df$d %in% c("d1","d3","d8"),] , aes(y = waiting, x = eruptions, group = d, colour = d))
 
 
-\end{verbatim}
+\end{lstlisting}
