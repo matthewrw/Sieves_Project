@@ -2,5 +2,63 @@
 % Matthew add the Geyser code below
 \begin{verbatim}
 
+Y_i <- faithful$waiting
+X_i <- faithful$eruptions
+N  <- seq(32,272, by=10)
+
+
+# initialize df for plotting
+D <- seq(1,12)
+error_plot <- data.frame(n = integer(), pse = numeric(), d = character())
+predicted_df <- data.frame(d = character(), eruptions = numeric(), waiting = numeric())
+# compute CV for dimension-D model on N datapoints
+p <- ggplot(data =faithful[1:max(N),]  ,  aes(x = eruptions, y = waiting) ) + geom_point() + labs(title = "Estimated Regression - Full Dataset", color = "Dimension") 
+for (d in D) {
+  d_plot <- data.frame(n = N, pse = rep(0, length(N)), d = paste0("d", d))
+  for (n in N) {
+    m_hat <- lm(Y_i[1:n] ~ poly(X_i[1:n], d))
+    pse = sum((residuals(m_hat) / (1 - hatvalues(m_hat)))^2) / n
+    d_plot[d_plot$n == n, "pse"] <- pse
+    
+  }
+  error_plot <- rbind(error_plot, d_plot)
+  #col <- c("blue","blue",'red','red','orange','orange','orange','green','green','green','green','green')
+  m_hat_predict <- approxfun(X_i[1:n],m_hat$fitted.values)
+  predicted_df <- rbind(predicted_df,data.frame(d = paste0("d", d),eruptions = seq( min(X_i),max(X_i),length.out=1000), waiting =  m_hat_predict( seq( min(X_i),max(X_i),length.out=1000))))
+  
+}
+p + geom_line( data = predicted_df[predicted_df$d %in% c("d1","d4","d12"),] , aes(y = waiting, x = eruptions, group = d, colour = d)) +   labs(title = "Estimated Regression - Full Dataset", color = "Dimension")
+
+
+
+# plot
+ggplot(data = error_plot[error_plot$d %in% c("d1","d3","d4","d5","d8","d12"),], aes(x = n, y = pse, group = d)) + 
+  geom_line(aes(colour = d)) +
+  coord_cartesian(ylim = c(25, 50)) +
+  labs(title = "Geyser PSE by n (Polynomial)", x = "n", y = "PSE", color = "Dimension")
+
+# Now compute estimator for small number of data points
+
+n <- 40
+D <- seq(1,11)
+error_plot <- data.frame(n = integer(), pse = numeric(), d = character())
+
+# compute CV for dimension-D model on N datapoints
+
+predicted_df <- data.frame(d = character(), eruptions = numeric(), waiting = numeric())
+p <- ggplot(data =faithful[1:n,]  ,  aes(x = eruptions, y = waiting)) + geom_point() +  labs(title = "Estimated Regression - Partial Dataset", color = "Dimension")
+
+
+for (d in D) {
+    m_hat <- lm(Y_i[1:n] ~ poly(X_i[1:n], d))
+    pse = sum((residuals(m_hat) / (1 - hatvalues(m_hat)))^2) / n
+    d_plot[d_plot$n == n, "pse"] <- pse
+    
+  m_hat_predict <- approxfun(X_i[1:n],m_hat$fitted.values)
+  predicted_df <- rbind(predicted_df,data.frame(d = paste0("d", d),eruptions = seq( min(X_i),max(X_i),length.out=1000), waiting =  m_hat_predict( seq( min(X_i),max(X_i),length.out=1000))))
+  
+}
+p + geom_line( data = predicted_df[predicted_df$d %in% c("d1","d3","d8"),] , aes(y = waiting, x = eruptions, group = d, colour = d))
+
 
 \end{verbatim}
