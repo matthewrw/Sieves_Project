@@ -6,6 +6,7 @@ autosize: true
 width: 1920
 height: 1080
 
+
 ```{r setup, echo=FALSE}
 library(ggplot2)
 ```
@@ -55,12 +56,18 @@ We will develop $d_{opt}$ after calculating bias, variance, and MISE
 
 Developing Sieves
 ========================================================
+incremental: true 
 
-**Bias**
+- Given we estimate $D$ correctly, bias and variance identical to OLS estimates
 
-**Variance**
+- Incorrect estimation of $D$ leads to bias and increased variance 
 
-**MISE**
+- Decomposition of error $$e(x_i) = \epsilon(x_i) + r(x_i)$$
+  - $\epsilon(x_i)$ random variation around true regression function 
+  - $r(x_i)$ misspecification of mean function 
+  
+- Under assumptions of homoscedsaticity, one can show that asymptotically $$MISE*(D)\simeq E[r^2(x)]+\frac{\sigma^2D}{n}$$
+
 
 Estimating the Dimension D
 ========================================================
@@ -82,7 +89,7 @@ $$CV(\hat{f}) = \frac{1}{n}\sum_{i=1}^n \tilde{e}_i$$
 
 **Properties**
 - $E\Big[CV(\hat{f})\Big] = PSE\Big(\hat{f}(x^*)\Big)$
-- asympotically equivalent to the $D$ chosen via $MISE$, Hansen (2012)
+- asymptotically equivalent to the $D$ chosen via $MISE$, Hansen (2012)
 
 Simulation
 ========================================================
@@ -186,7 +193,7 @@ Conclusion
 **Further Exploration**
 - Penalized sieve estimator as a way to control model complexity
 - Testing with sieve estimators
-- Infereneces about global properties of the mean function
+- Inferences about global properties of the mean function
 
 Questions
 ========================================================
