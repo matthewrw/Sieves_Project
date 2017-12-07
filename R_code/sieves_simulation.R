@@ -109,7 +109,9 @@ for(i in 1:frames){
     labs(x = "n", y = "PSE", color = "Dimension")
   
   # fitted values
-  df <- data.frame(x = X_i[1:N[i]], y = Y_i[1:N[i]])
+  x <- X_i[1:N[i]]
+  y <- Y_i[1:N[i]]
+  df <- data.frame(x = x, y = y)
   m_hat <- lm(y ~ poly(x, opt_D[i]), data = df)
   ix <- sort(x, index.return = TRUE)$ix
   m_hat <- approxfun(x[ix], predict(m_hat)[ix])
